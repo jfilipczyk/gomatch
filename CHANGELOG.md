@@ -7,10 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2019-01-26
 ### Added
 - Initial release with support for patterns: 
-  - @string@
-  - @number@
-  - @bool@
-  - @array@
-  - @uuid@
-  - @wildcard@
-  - @...@
+  - `@string@`
+  - `@number@`
+  - `@bool@`
+  - `@array@`
+  - `@uuid@`
+  - `@wildcard@`
+  - `@...@`
