@@ -1,20 +1,31 @@
+# Gomatch
+
+<img align="right" width="147px" src="https://raw.github.com/jfilipczyk/gomatch/master/logo.png">
+
 [![Build Status](https://travis-ci.com/jfilipczyk/gomatch.svg?branch=master)](https://travis-ci.com/jfilipczyk/gomatch)
 [![codecov](https://codecov.io/gh/jfilipczyk/gomatch/branch/master/graph/badge.svg)](https://codecov.io/gh/jfilipczyk/gomatch)
 [![GoDoc](https://godoc.org/github.com/jfilipczyk/gomatch?status.svg)](https://godoc.org/github.com/jfilipczyk/gomatch)
 
-# Gomatch
+Library created for testing JSON against patterns. The goal was to be able to validate JSON focusing only on parts essential in given test case so tests are more expressive and less fragile. It can be used with both unit tests and functional tests.
 
-![alt text](logo.png)
+When used with Gherkin driven BDD tests it makes scenarios more compact and readable. See [Gherkin example](#gherkin-example)
 
-Library created for testing JSONs against patterns.
+## Contests
 
-# Installation
+  - [Installation](#installation)
+  - [Basic usage](#basic-usage)
+  - [Available patterns](#available-patterns)
+  - [Gherkin example](#gherkin-example)
+  - [License](#license)
+  - [Credits](#credits)
+
+## Installation
 
 ```shell
 go get github.com/jfilipczyk/gomatch
 ```
 
-# Basic usage
+## Basic usage
 
 ```go
 
@@ -47,7 +58,7 @@ if ok {
 
 ```
 
-# Available patterns
+## Available patterns
 
 * `@string@`
 * `@number@`
@@ -57,7 +68,7 @@ if ok {
 * `@wildcard@`
 * `@...@` - unbounded array or object
 
-## Unbounded pattern
+### Unbounded pattern
 
 It can be used at the end of an array to allow any extra array elements:
 ```json
@@ -77,7 +88,7 @@ It can be used at the end of an object to allow any extra keys:
 }
 ```
 
-# Gherkin example
+## Gherkin example
 
 Gomatch was created to use it together with tools like [GODOG](https://github.com/DATA-DOG/godog).
 The goal was to be able to validate JSON response focusing only on parts essential in given scenario.
@@ -118,14 +129,14 @@ Feature: User management API
     """
 ```
 
-# License
+## License
 
 This library is distributed under the MIT license. Please see the LICENSE file.
 
-# Credits
+## Credits
 
 This library was inspired by [PHP Matcher](https://github.com/coduo/php-matcher)
 
-## Logo
+### Logo
 The Go gopher was designed by Renee French. (http://reneefrench.blogspot.com/).
 Gomatch logo was based on a gopher created by Takuya Ueda (https://twitter.com/tenntenn). Licensed under the [Creative Commons 3.0 Attributions license](http://creativecommons.org/licenses/by/3.0/deed.en). Gopher eyes were changed.
