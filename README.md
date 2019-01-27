@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.com/jfilipczyk/gomatch.svg?branch=master)](https://travis-ci.com/jfilipczyk/gomatch)
 [![codecov](https://codecov.io/gh/jfilipczyk/gomatch/branch/master/graph/badge.svg)](https://codecov.io/gh/jfilipczyk/gomatch)
 [![GoDoc](https://godoc.org/github.com/jfilipczyk/gomatch?status.svg)](https://godoc.org/github.com/jfilipczyk/gomatch)
+[![Go Report Card](https://goreportcard.com/badge/github.com/jfilipczyk/gomatch)](https://goreportcard.com/report/github.com/jfilipczyk/gomatch)
 
 Library created for testing JSON against patterns. The goal was to be able to validate JSON focusing only on parts essential in given test case so tests are more expressive and less fragile. It can be used with both unit tests and functional tests.
 
