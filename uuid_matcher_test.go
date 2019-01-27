@@ -24,6 +24,12 @@ var uuidMatcherTests = []struct {
 		false,
 		"expected UUID",
 	},
+	{
+		"Should not match if value is not a string",
+		123,
+		false,
+		"expected UUID",
+	},
 }
 
 func TestUUIDMatcher(t *testing.T) {
