@@ -122,7 +122,7 @@ func NewJSONMatcher(matcher ValueMatcher) *JSONMatcher {
 
 // A JSONMatcher provides Match method to match two JSONs with pattern matching support.
 type JSONMatcher struct {
-	matcher ValueMatcher
+	valueMatcher ValueMatcher
 }
 
 // Match performs deep match of given JSON with an expected JSON pattern.
@@ -193,60 +193,74 @@ func (m *JSONMatcher) Match(expectedJSON, actualJSON string) (bool, error) {
 
 func (m *JSONMatcher) deepMatch(expected interface{}, actual interface{}) ([]interface{}, error) {
 	var path []interface{}
-	if reflect.TypeOf(expected) != reflect.TypeOf(actual) && !m.matcher.CanMatch(expected) {
+	if reflect.TypeOf(expected) != reflect.TypeOf(actual) && !m.valueMatcher.CanMatch(expected) {
 		return path, errTypesNotEqual
 	}
 
 	switch expected.(type) {
 	case []interface{}:
-		unbounded := false
-		for i, v := range expected.([]interface{}) {
-			if isUnbounded(v) {
-				unbounded = true
-				break
-			}
-			keyPath, err := m.deepMatch(v, actual.([]interface{})[i])
-			if err != nil {
-				return append(keyPath, i), err
-			}
-		}
-		if !unbounded && len(expected.([]interface{})) != len(actual.([]interface{})) {
-			return path, errArraysLenNotEqual
-		}
-		return path, nil
+		return m.deepMatchArray(expected.([]interface{}), actual.([]interface{}))
 
 	case map[string]interface{}:
-		unbounded := false
-		for k, v1 := range expected.(map[string]interface{}) {
-			if isUnbounded(k) {
-				unbounded = true
-				// when iterating over a map with a range loop, the iteration order random so we cannot break
-				continue
-			}
-			v2, ok := actual.(map[string]interface{})[k]
-			if !ok {
-				return path, fmt.Errorf(`expected key "%s"`, k)
-			}
-			keyPath, err := m.deepMatch(v1, v2)
-			if err != nil {
-				return append(keyPath, k), err
-			}
-		}
-		if !unbounded && len(expected.(map[string]interface{})) != len(actual.(map[string]interface{})) {
-			return path, errUnexpectedKey
-		}
-		return path, nil
+		return m.deepMatchMap(expected.(map[string]interface{}), actual.(map[string]interface{}))
 
 	default:
-		if m.matcher.CanMatch(expected) {
-			_, err := m.matcher.Match(expected, actual)
-			return path, err
-		}
-		if expected != actual {
-			return path, errValuesNotEqual
-		}
-		return path, nil
+		return m.matchValue(expected, actual)
 	}
+}
+
+func (m *JSONMatcher) deepMatchArray(expected, actual []interface{}) ([]interface{}, error) {
+	var path []interface{}
+	unbounded := false
+	for i, v := range expected {
+		if isUnbounded(v) {
+			unbounded = true
+			break
+		}
+		keyPath, err := m.deepMatch(v, actual[i])
+		if err != nil {
+			return append(keyPath, i), err
+		}
+	}
+	if !unbounded && len(expected) != len(actual) {
+		return path, errArraysLenNotEqual
+	}
+	return path, nil
+}
+
+func (m *JSONMatcher) deepMatchMap(expected, actual map[string]interface{}) ([]interface{}, error) {
+	var path []interface{}
+	unbounded := false
+	for k, v1 := range expected {
+		if isUnbounded(k) {
+			unbounded = true
+			continue
+		}
+		v2, ok := actual[k]
+		if !ok {
+			return path, fmt.Errorf(`expected key "%s"`, k)
+		}
+		keyPath, err := m.deepMatch(v1, v2)
+		if err != nil {
+			return append(keyPath, k), err
+		}
+	}
+	if !unbounded && len(expected) != len(actual) {
+		return path, errUnexpectedKey
+	}
+	return path, nil
+}
+
+func (m *JSONMatcher) matchValue(expected, actual interface{}) ([]interface{}, error) {
+	var path []interface{}
+	if m.valueMatcher.CanMatch(expected) {
+		_, err := m.valueMatcher.Match(expected, actual)
+		return path, err
+	}
+	if expected != actual {
+		return path, errValuesNotEqual
+	}
+	return path, nil
 }
 
 func pathToString(path []interface{}) string {
