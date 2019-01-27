@@ -19,7 +19,7 @@ func (m *ChainMatcher) CanMatch(p interface{}) bool {
 	return false
 }
 
-// Match performs value matching agains given pattern.
+// Match performs value matching against given pattern.
 // It iterates through internal matchers and uses first which can handle given pattern.
 func (m *ChainMatcher) Match(p, v interface{}) (bool, error) {
 	for _, m := range m.matchers {

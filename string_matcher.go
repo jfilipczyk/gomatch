@@ -14,7 +14,7 @@ func (m *StringMatcher) CanMatch(p interface{}) bool {
 	return isPattern(p, m.pattern)
 }
 
-// Match performs value matching agains given pattern.
+// Match performs value matching against given pattern.
 func (m *StringMatcher) Match(p, v interface{}) (bool, error) {
 	_, ok := v.(string)
 	if ok {
