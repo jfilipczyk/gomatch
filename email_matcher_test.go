@@ -54,6 +54,18 @@ var emailMatcherTests = []struct {
 		false,
 		"expected email",
 	},
+	{
+		"Should not match number",
+		1234,
+		false,
+		"expected email",
+	},
+	{
+		"Should not match slice",
+		[]interface{}{"a", "b"},
+		false,
+		"expected email",
+	},
 }
 
 func TestEmailMatcher(t *testing.T) {
