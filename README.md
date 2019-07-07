@@ -66,6 +66,7 @@ if ok {
 * `@bool@`
 * `@array@`
 * `@uuid@`
+* `@email@`
 * `@wildcard@`
 * `@...@` - unbounded array or object
 

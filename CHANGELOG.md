@@ -14,3 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `@uuid@`
   - `@wildcard@`
   - `@...@`
+
+## [1.1.0] - 2019-07-07
+### Added
+- Email pattern: `@email@`
