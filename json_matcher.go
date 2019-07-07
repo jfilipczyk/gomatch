@@ -72,6 +72,7 @@ const (
 	patternBool      = "@bool@"
 	patternArray     = "@array@"
 	patternUUID      = "@uuid@"
+	patternEmail     = "@email@"
 	patternWildcard  = "@wildcard@"
 	patternUnbounded = "@...@"
 )
@@ -99,6 +100,8 @@ type ValueMatcher interface {
 //
 // - UUIDMatcher handling "@uuid@" pattern
 //
+// - EmailMatcher handling "@email@" pattern
+//
 // - WildcardMatcher handling "@wildcard@" pattern
 //
 func NewDefaultJSONMatcher() *JSONMatcher {
@@ -110,6 +113,7 @@ func NewDefaultJSONMatcher() *JSONMatcher {
 				NewBoolMatcher(patternBool),
 				NewArrayMatcher(patternArray),
 				NewUUIDMatcher(patternUUID),
+				NewEmailMatcher(patternEmail),
 				NewWildcardMatcher(patternWildcard),
 			},
 		))

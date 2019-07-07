@@ -377,6 +377,7 @@ func TestJSONMatcherWithDefaultMatchers(t *testing.T) {
 		"isActive": "@bool@",
 		"createdAt": "@wildcard@",
 		"phones": "@array@",
+		"email": "@email@",
 		"@...@": ""
 	}
 	`
