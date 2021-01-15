@@ -221,6 +221,9 @@ func (m *JSONMatcher) deepMatchArray(expected, actual []interface{}) ([]interfac
 			unbounded = true
 			break
 		}
+		if i == len(actual) {
+			 break
+		}
 		keyPath, err := m.deepMatch(v, actual[i])
 		if err != nil {
 			return append(keyPath, i), err

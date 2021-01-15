@@ -292,6 +292,20 @@ var jsonMatcherTests = []struct {
 		"arrays sizes are not equal",
 	},
 	{
+		"Should fail if array misses some values",
+		"[1,2,3]",
+		"[1,2]",
+		false,
+		"arrays sizes are not equal",
+	},
+	{
+		"Should fail if array misses some values but unbounded pattern was used",
+		`[1,2,"@...@"]`,
+		"[1]",
+		false,
+		"arrays sizes are not equal",
+	},
+	{
 		"Should succeed if array has unexpected extra values but unbounded pattern was used",
 		`[1,2,3,"@...@"]`,
 		"[1,2,3,4]",
